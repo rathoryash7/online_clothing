@@ -1,6 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
+// Configure axios base URL for API calls
+const API_URL = process.env.REACT_APP_API_URL || '';
+if (API_URL) {
+  axios.defaults.baseURL = API_URL;
+}
+
 const AuthContext = createContext();
 
 export const useAuth = () => {

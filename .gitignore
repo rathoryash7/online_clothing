@@ -1,8 +1,12 @@
 node_modules/
 .env
+.env.local
+.env.production
 .DS_Store
 *.log
 client/node_modules/
 client/build/
 client/.env
-
+client/.env.local
+*.pem
+.vercel
