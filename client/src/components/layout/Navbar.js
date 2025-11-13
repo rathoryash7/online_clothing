@@ -26,8 +26,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-serif font-bold text-primary-600">Trending</span>
-            <span className="text-2xl font-serif font-light text-gray-700">Naari</span>
+            <span className="text-2xl font-serif font-bold text-primary-600">Trendy</span>
+            <span className="text-2xl font-serif font-light text-gray-700">Nari</span>
           </Link>
 
           <div className="hidden md:flex flex-1 justify-center mx-8">
