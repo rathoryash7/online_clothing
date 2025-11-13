@@ -1,4 +1,4 @@
-# Elegant Boutique - Women's Jewelry & Clothing E-commerce
+# Trending Naari - Women's Jewelry & Clothing E-commerce
 
 A modern, responsive e-commerce website built with React, Tailwind CSS, Node.js, Express, and MongoDB.
 
