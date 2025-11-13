@@ -38,7 +38,7 @@ Click "Environment" and add:
 
 ```
 NODE_ENV=production
-MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/online_clothing?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://yashyash:yashyash@cluster0.zqfak.mongodb.net/online_clothing?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=<generate-a-random-32-character-string>
 ```
 

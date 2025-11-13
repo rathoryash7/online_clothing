@@ -33,7 +33,7 @@ The build command in Render is set incorrectly. You need to update it:
    
    Example format:
    ```
-   mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/online_clothing?retryWrites=true&w=majority
+   mongodb+srv://yashyash:yashyash@cluster0.zqfak.mongodb.net/online_clothing?retryWrites=true&w=majority&appName=Cluster0
    ```
 5. **Save Changes**
 6. The service will automatically redeploy

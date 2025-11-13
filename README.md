@@ -55,7 +55,7 @@ cd ..
 Create a `.env` file in the root directory:
 ```
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/online_clothing
+MONGODB_URI=mongodb+srv://yashyash:yashyash@cluster0.zqfak.mongodb.net/online_clothing?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=your_super_secret_jwt_key
 STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
 STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key

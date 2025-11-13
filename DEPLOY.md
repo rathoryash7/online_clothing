@@ -63,7 +63,7 @@ Click on **"Environment"** tab and add these variables:
 
 ```
 NODE_ENV=production
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/online_clothing?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://yashyash:yashyash@cluster0.zqfak.mongodb.net/online_clothing?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=your_super_secret_random_string_minimum_32_characters_long
 ```
 
@@ -120,7 +120,7 @@ If you prefer using the `render.yaml` file:
 
 **Example MongoDB URI:**
 ```
-mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/online_clothing?retryWrites=true&w=majority
+mongodb+srv://yashyash:yashyash@cluster0.zqfak.mongodb.net/online_clothing?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ## Setting up Stripe
