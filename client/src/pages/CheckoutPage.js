@@ -21,10 +21,6 @@ const CheckoutForm = ({ cart, shippingAddress, setShippingAddress, onSuccess }) 
     setProcessing(true);
 
     try {
-      const itemsTotal = cart.items.reduce((total, item) => {
-        return total + (item.product.price * item.quantity);
-      }, 0);
-
       // Create order first
       const orderRes = await axios.post('/api/orders', {
         shippingAddress,
@@ -111,6 +107,7 @@ const CheckoutPage = () => {
       return;
     }
     fetchCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, navigate]);
 
   const fetchCart = async () => {

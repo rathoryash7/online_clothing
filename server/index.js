@@ -10,19 +10,22 @@ dotenv.config();
 const app = express();
 
 // Middleware
+// CORS configuration - Allow all origins in development, restrict in production
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin) return callback(null, true);
+    // In development mode, allow all origins
+    if (process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
     
+    // In production, only allow specified origins
     const allowedOrigins = [
       process.env.FRONTEND_URL,
       process.env.CLIENT_URL,
-      'http://localhost:3000',
-      'http://localhost:3001',
     ].filter(Boolean);
     
-    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'production') {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));

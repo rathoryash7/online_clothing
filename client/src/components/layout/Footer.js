@@ -33,10 +33,10 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold mb-4">Connect</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-primary-400">Facebook</a></li>
-              <li><a href="#" className="hover:text-primary-400">Instagram</a></li>
-              <li><a href="#" className="hover:text-primary-400">Twitter</a></li>
-              <li><a href="#" className="hover:text-primary-400">Pinterest</a></li>
+              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400">Facebook</a></li>
+              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400">Instagram</a></li>
+              <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400">Twitter</a></li>
+              <li><a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400">Pinterest</a></li>
             </ul>
           </div>
         </div>
