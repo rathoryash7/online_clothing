@@ -15,7 +15,8 @@
     "build": "npm install && cd client && npm install && npm run build",
     "start": "node server/index.js",
     "seed": "node server/scripts/seedData.js",
-    "render-build": "npm install && cd client && npm install && npm run build"
+    "render-build": "npm install && cd client && npm install && npm run build && cd .. && node check-build.js",
+    "postbuild": "node check-build.js || exit 0"
   },
   "keywords": ["ecommerce", "jewelry", "clothing"],
   "author": "",

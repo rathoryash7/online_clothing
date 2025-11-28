@@ -48,19 +48,41 @@ app.use('/api/payment', require('./routes/payment'));
 
 // Serve static files from React app in production
 if (process.env.NODE_ENV === 'production') {
-  const buildPath = path.join(__dirname, '../client/build');
+  // Try multiple possible paths for the build directory
+  const possiblePaths = [
+    path.join(__dirname, '../client/build'), // Relative to server/index.js
+    path.join(process.cwd(), 'client/build'), // From project root
+    path.join(process.cwd(), 'build'), // If build is in root
+  ];
   
-  // Only serve static files if build directory exists
-  if (fs.existsSync(buildPath)) {
+  let buildPath = null;
+  
+  // Find the first existing build path
+  for (const testPath of possiblePaths) {
+    if (fs.existsSync(testPath) && fs.existsSync(path.join(testPath, 'index.html'))) {
+      buildPath = testPath;
+      console.log(`Found build directory at: ${buildPath}`);
+      break;
+    }
+  }
+  
+  if (buildPath) {
     app.use(express.static(buildPath));
     
+    // Serve React app for all non-API routes (this must be after API routes)
     app.get('*', (req, res) => {
       res.sendFile(path.join(buildPath, 'index.html'));
     });
+    console.log('✅ Frontend build directory found and configured');
   } else {
-    console.warn('Warning: Frontend build directory not found. Serving API only.');
+    console.error('❌ Frontend build directory not found at any of these paths:');
+    possiblePaths.forEach(p => console.error(`   - ${p}`));
+    console.warn('⚠️  Serving API only. Frontend will not be available.');
     app.get('/', (req, res) => {
-      res.json({ message: 'API is running. Frontend build not found.' });
+      res.json({ 
+        message: 'API is running. Frontend build not found.',
+        hint: 'Check build logs to ensure React build completed successfully.'
+      });
     });
   }
 }
