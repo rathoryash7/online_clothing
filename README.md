@@ -32,38 +32,40 @@ A modern, responsive e-commerce website built with React, Tailwind CSS, Node.js,
 - Stripe Payment Gateway
 - Bcrypt for password hashing
 
-## Installation
+### Installation
 
-1. Clone the repository:
-```bash
-cd online_clothing
-```
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm run install-all
+   ```
+   (This installs dependencies for both backend and frontend)
+3. Create a .env file in the root directory (see Environment Variables section)
+4. Start development servers:
+   ```bash
+   npm run dev
+   ```
 
-2. Install backend dependencies:
-```bash
-npm install
-```
+### Project Structure
+- `backend/`: Node.js/Express server
+- `frontend/`: React application
 
-3. Install frontend dependencies:
-```bash
-cd client
-npm install
-cd ..
-```
+### Environment Variables
 
-4. Set up environment variables:
 Create a `.env` file in the root directory:
 ```
-PORT=5000
+PORT=10000
 MONGODB_URI=mongodb+srv://yashyash:yashyash@cluster0.zqfak.mongodb.net/online_clothing?retryWrites=true&w=majority&appName=Cluster0
 JWT_SECRET=your_super_secret_jwt_key
 STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
 STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
 STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
+CLIENT_URL=http://localhost:3000
 ```
 
-5. Create a `.env` file in the `client` directory for Stripe publishable key:
+5. Create a `.env` file in the `frontend` directory for API URL and Stripe:
 ```
+REACT_APP_API_URL=http://localhost:10000
 REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
 ```
 
@@ -82,17 +84,17 @@ Or run them separately:
 
 Backend:
 ```bash
-npm run server
+npm run backend
 ```
 
 Frontend:
 ```bash
-npm run client
+npm run frontend
 ```
 
 The application will be available at:
 - Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
+- Backend API: http://localhost:10000
 
 ## Default Admin Account
 
@@ -143,7 +145,7 @@ To create an admin account, you can either:
 
 ```
 online_clothing/
-├── client/
+├── frontend/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
@@ -155,7 +157,7 @@ online_clothing/
 │   │   └── index.css
 │   ├── package.json
 │   └── tailwind.config.js
-├── server/
+├── backend/
 │   ├── models/
 │   ├── routes/
 │   ├── middleware/

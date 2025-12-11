@@ -4,7 +4,7 @@ services:
     name: online-clothing-store
     env: node
     plan: starter
-    buildCommand: npm install && cd client && npm install && npm run build && cd ..
+    buildCommand: npm run render-build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
