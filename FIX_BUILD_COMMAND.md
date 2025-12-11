@@ -74,3 +74,4 @@ MongoDB connected successfully
 - [ ] Runtime logs show "✅ Frontend build directory found"
 - [ ] Website loads homepage (not just API message)
 
+

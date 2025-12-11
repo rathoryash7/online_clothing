@@ -29,6 +29,15 @@ module.exports = {
           700: '#be123c',
           800: '#9f1239',
           900: '#881337',
+        },
+        pastel: {
+          purple: '#E0BBE4',
+          pink: '#FFDFD3',
+          cream: '#FFF4E6',
+          lavender: '#D291BC',
+          rose: '#FEC8D8',
+          mint: '#D5F2E1',
+          sky: '#E0F7FA'
         }
       },
       fontFamily: {

@@ -10,27 +10,9 @@ dotenv.config();
 const app = express();
 
 // Middleware
-// CORS configuration - Allow all origins in development, restrict in production
+// CORS configuration
 const corsOptions = {
-  origin: function (origin, callback) {
-    // In development mode, allow all origins
-    if (process.env.NODE_ENV !== 'production') {
-      return callback(null, true);
-    }
-    
-    // In production, only allow specified origins
-    const allowedOrigins = [
-      process.env.FRONTEND_URL,
-      process.env.CLIENT_URL,
-    ].filter(Boolean);
-    
-    // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: process.env.CLIENT_URL,
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -50,8 +32,8 @@ app.use('/api/payment', require('./routes/payment'));
 if (process.env.NODE_ENV === 'production') {
   // Try multiple possible paths for the build directory
   const possiblePaths = [
-    path.join(__dirname, '../client/build'), // Relative to server/index.js
-    path.join(process.cwd(), 'client/build'), // From project root
+    path.join(__dirname, '../frontend/build'), // Relative to backend/index.js
+    path.join(process.cwd(), 'frontend/build'), // From project root
     path.join(process.cwd(), 'build'), // If build is in root
   ];
   
@@ -104,7 +86,7 @@ if (!mongoURI) {
   });
 }
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

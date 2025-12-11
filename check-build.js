@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const possiblePaths = [
-  path.join(__dirname, 'client/build'),
-  path.join(process.cwd(), 'client/build'),
+  path.join(__dirname, 'frontend/build'),
+  path.join(process.cwd(), 'frontend/build'),
   path.join(process.cwd(), 'build'),
 ];
 
@@ -36,4 +36,5 @@ if (!found) {
   console.log('\n✅ Build directory found!');
   process.exit(0);
 }
+
 

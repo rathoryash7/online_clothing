@@ -118,3 +118,4 @@ Found build directory at: /opt/render/project/src/client/build
 ✅ Frontend build directory found and configured
 ```
 
+

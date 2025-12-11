@@ -1,110 +1,119 @@
-# Quick Render Deployment Guide
+# Modern Deployment Guide for Online Clothing Store
 
-## 🚀 Quick Start (5 minutes)
+This project has been restructured into a modern full-stack architecture with separate `frontend` and `backend` directories. This allows for cleaner code management and scalable deployment.
 
-### 1. Push to GitHub
+## 📂 Project Structure
+
+```
+/
+├── backend/         # Server, API, Database (Node.js/Express)
+├── frontend/        # UI, Components, Pages (React)
+├── package.json     # Root scripts
+└── render.yaml      # Render Blueprint (optional)
+```
+
+---
+
+## 🚀 Deployment Strategy
+
+You can deploy this application in two ways on **Render**:
+
+1.  **Monolithic Service (Simplest)**: One Web Service that runs the backend and serves the frontend static files.
+2.  **Separate Services (Recommended for Scale)**:
+    - **Backend**: A Web Service (Node.js)
+    - **Frontend**: A Static Site (React)
+
+The instructions below cover the **Separate Services** approach as it is more robust and allows you to replace localhost URLs with absolute production URLs.
+
+---
+
+## Part 1: Backend Deployment (Web Service)
+
+1.  **Create New Web Service** on Render.
+2.  **Connect your GitHub repository**.
+3.  **Settings**:
+    - **Name**: `online-clothing-backend`
+    - **Root Directory**: `.` (or leave empty)
+    - **Environment**: `Node`
+    - **Build Command**: `npm install`
+    - **Start Command**: `node backend/index.js`
+4.  **Environment Variables** (Add these in the Dashboard):
+    - `NODE_ENV`: `production`
+    - `PORT`: `10000`
+    - `MONGODB_URI`: `your_mongodb_connection_string`
+    - `JWT_SECRET`: `your_secure_random_string`
+    - `CLIENT_URL`: `https://your-frontend-url.onrender.com` (Add this later after deploying frontend)
+    - `STRIPE_SECRET_KEY`: `sk_test_...` (if using payments)
+
+5.  **Deploy**.
+    - Once deployed, copy the **Backend URL** (e.g., `https://online-clothing-backend.onrender.com`).
+
+---
+
+## Part 2: Frontend Deployment (Static Site)
+
+1.  **Create New Static Site** on Render.
+2.  **Connect the same GitHub repository**.
+3.  **Settings**:
+    - **Name**: `online-clothing-frontend`
+    - **Root Directory**: `frontend`
+    - **Build Command**: `npm install && npm run build`
+    - **Publish Directory**: `build`
+4.  **Environment Variables**:
+    - `REACT_APP_API_URL`: Paste your **Backend URL** here (e.g., `https://online-clothing-backend.onrender.com`).
+    *Note: Do not add a trailing slash.*
+
+5.  **Deploy**.
+    - Your frontend will build and be live at `https://online-clothing-frontend.onrender.com`.
+
+---
+
+## Part 3: Final Connection
+
+1.  Go back to your **Backend Service** settings on Render.
+2.  Update the `CLIENT_URL` environment variable with your **Frontend URL** (e.g., `https://online-clothing-frontend.onrender.com`).
+    - *This ensures CORS is correctly configured to allow requests only from your frontend.*
+
+---
+
+## 🛠 Local Development Update
+
+We have modernized the local development flow.
+
+### 1. Install Dependencies
+Run from the root folder:
 ```bash
-git init
-git add .
-git commit -m "Ready for deployment"
-git remote add origin <your-repo-url>
-git push -u origin main
+npm run install-all
 ```
 
-### 2. Create Render Service
-1. Go to [render.com](https://render.com) → Sign up
-2. Click **"New +"** → **"Web Service"**
-3. Connect GitHub repository
-4. Use these settings:
-
-**Basic Settings:**
-- Name: `online-clothing-store`
-- Environment: `Node`
-- Region: Choose closest
-- Branch: `main`
-
-**Build & Deploy:**
-- Build Command:
-  ```bash
-  npm install && cd client && npm install && npm run build && cd ..
-  ```
-- Start Command:
-  ```bash
-  npm start
-  ```
-
-### 3. Environment Variables
-Click "Environment" and add:
-
+### 2. Start Development Servers
+Run from the root folder:
+```bash
+npm run dev
 ```
-NODE_ENV=production
-MONGODB_URI=mongodb+srv://yashyash:yashyash@cluster0.zqfak.mongodb.net/online_clothing?retryWrites=true&w=majority&appName=Cluster0
-JWT_SECRET=<generate-a-random-32-character-string>
+This command concurrently starts:
+- **Backend** on `http://localhost:5000` (or `PORT` env var)
+- **Frontend** on `http://localhost:3000`
+
+### 3. Environment Variables (.env)
+Ensure your `.env` file in the **root** or **backend** folder has:
+```
+PORT=5000
+MONGODB_URI=...
+JWT_SECRET=...
+CLIENT_URL=http://localhost:3000
 ```
 
-**Optional (for payments):**
+Ensure your `.env` (or `.env.local`) in the **frontend** folder has:
 ```
-STRIPE_SECRET_KEY=sk_test_...
-STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+REACT_APP_API_URL=http://localhost:5000
 ```
-
-### 4. Get MongoDB URI
-1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-2. Create free cluster
-3. Database Access → Create user
-4. Network Access → Add IP (0.0.0.0/0 for all)
-5. Connect → Get connection string
-6. Replace `<password>` with your password
-
-### 5. Deploy!
-Click **"Create Web Service"** and wait ~5 minutes.
-
-**Your site:** `https://online-clothing-store.onrender.com`
 
 ---
 
-## ✅ Post-Deployment Checklist
+## ✨ Features Added
 
-- [ ] Site loads successfully
-- [ ] Can browse products
-- [ ] Can register/login
-- [ ] Can add items to cart
-- [ ] Can view profile
-- [ ] (Optional) Seed sample data: `npm run seed`
-- [ ] (Optional) Create admin account in MongoDB
-
----
-
-## 🆘 Common Issues
-
-**Build fails?**
-- Check build logs in Render dashboard
-- Ensure all dependencies are in package.json
-
-**MongoDB connection error?**
-- Verify connection string format
-- Check username/password
-- Verify IP whitelist (0.0.0.0/0)
-
-**Site loads but API fails?**
-- API calls work automatically (same origin in production)
-- Check service logs for errors
-
-**Slow first load?**
-- Normal for free tier (spins down after 15min inactivity)
-- First request after spin-down takes ~30 seconds
-
----
-
-## 📝 Notes
-
-- Free tier: Services spin down after inactivity
-- Paid tier: Always running + custom domain
-- All API calls use relative paths (no config needed)
-- Frontend served from same domain as backend
-
----
-
-**Need help?** Check full guide in `DEPLOY.md`
-
+- **Restructured Folder Architecture**: Clean separation of concerns.
+- **Modern UI**: Pastel color palette, glassmorphism navbar, rounded cards, and elegant typography.
+- **Security**: CORS configured to strict origins in production.
+- **Environment Aware**: No hardcoded "localhost" URLs.
