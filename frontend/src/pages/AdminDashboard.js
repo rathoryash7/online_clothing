@@ -24,6 +24,24 @@ const AdminDashboard = () => {
     sizes: [],
     colors: []
   });
+  const [tempImageUrl, setTempImageUrl] = useState('');
+
+  const handleAddImage = () => {
+    if (tempImageUrl.trim()) {
+      setProductForm(prev => ({
+        ...prev,
+        images: [...prev.images, tempImageUrl.trim()]
+      }));
+      setTempImageUrl('');
+    }
+  };
+
+  const handleRemoveImage = (index) => {
+    setProductForm(prev => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
+    }));
+  };
 
   useEffect(() => {
     if (!isAuthenticated || !isAdmin) {
@@ -114,9 +132,8 @@ const AdminDashboard = () => {
                     setActiveTab(tab);
                     setLoading(true);
                   }}
-                  className={`w-full text-left px-4 py-2 rounded-lg capitalize ${
-                    activeTab === tab ? 'bg-primary-100 text-primary-700' : 'hover:bg-gray-100'
-                  }`}
+                  className={`w-full text-left px-4 py-2 rounded-lg capitalize ${activeTab === tab ? 'bg-primary-100 text-primary-700' : 'hover:bg-gray-100'
+                    }`}
                 >
                   {tab}
                 </button>
@@ -238,7 +255,44 @@ const AdminDashboard = () => {
                       Popular
                     </label>
                   </div>
-                  <button type="submit" className="btn-primary">Create Product</button>
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">Images</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="url"
+                        placeholder="Paste Image URL here (e.g., from Unsplash, Imgur)"
+                        value={tempImageUrl}
+                        onChange={(e) => setTempImageUrl(e.target.value)}
+                        className="input-field flex-grow"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddImage}
+                        className="btn-secondary whitespace-nowrap"
+                        disabled={!tempImageUrl}
+                      >
+                        Add Image
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-2">
+                      {productForm.images.map((url, index) => (
+                        <div key={index} className="relative group rounded-lg overflow-hidden border border-gray-200 aspect-w-16 aspect-h-9">
+                          <img src={url} alt={`Product ${index + 1}`} className="object-cover w-full h-24" />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveImage(index)}
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                            title="Remove Image"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button type="submit" className="btn-primary w-full">Create Product</button>
                 </form>
               </div>
 
